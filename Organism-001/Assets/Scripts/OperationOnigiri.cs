@@ -1,0 +1,201 @@
+ using UnityEngine;
+using System.Collections;
+using UnityEngine.XR;
+using Unity.VisualScripting;
+
+public class OperationOnigiri : MonoBehaviour
+{
+    
+    [SerializeField]private float moveSpeed = 3f;
+    public GameObject ricePrefab;
+    private GameObject target;
+    private int riceConsumed = 0;
+
+    private enum State{
+
+        idle,
+        small,
+        medium,
+        large,
+        explode,
+      
+    }
+
+    private State stateCurrent;
+
+
+    void AlterState(State toState)
+    {
+        stateCurrent = toState;
+
+    }
+
+    void Start()
+    {
+      AlterState(State.idle);
+      spawnRice();
+      riceConsumed = 0;
+
+    }
+
+    
+    void spawnRice()
+    {
+        float riceX = Random.Range(-7.4f, 7.4f);
+        float riceY = Random.Range(-3.4f, 3.4f);
+        target = Instantiate(ricePrefab,new Vector3(riceX,riceY,0),Quaternion.identity);
+
+    }
+
+
+    void Update()
+    {
+
+        Debug.Log(stateCurrent.ToString());
+
+        switch (stateCurrent)
+        {
+            case State.idle:
+                inIdle();
+                break;
+
+            case State.small:
+                inSmall();
+                break;
+
+            case State.medium:
+                inMedium();
+                break;
+
+            case State.large:
+                inLarge();
+                break;
+
+            case State.explode:
+                inExplode();
+                break;
+
+        }
+
+
+        if (target != null && (stateCurrent == State.small || stateCurrent == State.medium || stateCurrent == State.large))
+        {
+            Vector3 direction = (target.transform.position - transform.position).normalized;
+            transform.Translate(direction*moveSpeed*Time.deltaTime,Space.World);
+
+        }
+
+
+    }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
+        if (other.tag == "Food")
+        {
+            Destroy(other.gameObject);
+            riceConsumed += 1;
+            spawnRice(); 
+
+
+        }
+
+
+
+    }
+
+    IEnumerator OnigiriGrowth(Vector3 targetSize,float duration)
+    {
+
+        Vector3 currentSize = transform.localScale;
+        float aniTimer = 0;
+
+        while (aniTimer < duration)
+        {
+            transform.localScale = Vector3.Lerp(currentSize,targetSize,aniTimer/duration);
+            aniTimer+=Time.deltaTime;
+            yield return null;
+
+        }
+
+        transform.localScale = targetSize;
+
+
+    }
+
+    void inIdle()
+        {
+
+            StartCoroutine(IdleOp());
+
+        }
+
+        IEnumerator IdleOp()
+        {
+            yield return new WaitForSeconds(2f);
+            AlterState(State.small);
+
+        }
+
+        void inSmall()
+        {
+        if (riceConsumed == 3)
+        {
+            StartCoroutine(SmallOp());
+        }
+
+        }
+
+        IEnumerator SmallOp()
+        {
+            StartCoroutine(OnigiriGrowth(new Vector3(0.23f, 0.23f, 1f), 0.3f));
+            yield return new WaitForSeconds(2f);
+            AlterState(State.medium);
+        }
+
+        void inMedium()
+        {
+
+        if (riceConsumed == 6)
+        {
+            StartCoroutine(MediumOp());
+        }
+
+
+        }
+
+        IEnumerator MediumOp()
+        { 
+            StartCoroutine(OnigiriGrowth(new Vector3(0.3f, 0.3f, 1f), 0.3f));
+            yield return new WaitForSeconds(2f);
+            AlterState(State.large);
+        }
+
+        void inLarge()
+        {
+        if (riceConsumed == 9)
+        {
+            StartCoroutine(LargeOp());
+        }
+
+        }
+
+        IEnumerator LargeOp()
+        {
+            StartCoroutine(OnigiriGrowth(new Vector3(0.4f, 0.4f, 1f), 0.3f));
+            yield return new WaitForSeconds(2f);
+            AlterState(State.explode);
+        }
+
+
+        void inExplode()
+        {
+
+            Destroy(gameObject);
+
+        }
+
+
+    
+}
