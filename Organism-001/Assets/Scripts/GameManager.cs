@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     [Header("Basics")]
     public GameObject[] orgPrefabs;
     public float spawnCoolDown = 3f;
-    [SerializeField] private int totalOrg = 0;
+    public int totalOrg = 0;
 
     [Header("Spawn Coordinates")]
     [SerializeField] public float spawnCoordinateRangeX1 = -7.2f;
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         totalOrg = 0;
     }
 
-    IEnumerator SpawnChain()
+    public IEnumerator SpawnChain()
     {
         while(totalOrg<7){ 
 
@@ -33,17 +33,35 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void SpawnOrg()
+    public void SpawnOrg()
     {
         float spawnCoordinateX = Random.Range(spawnCoordinateRangeX1,spawnCoordinateRangeX2);
         float spawnCoordinateY = Random.Range(spawnCoordinateRangeY1, spawnCoordinateRangeY2);
         GameObject spawningOrg = orgPrefabs[Random.Range(0,orgPrefabs.Length)];
         GameObject spawnedOrg = Instantiate(spawningOrg,new Vector3(spawnCoordinateX,spawnCoordinateY,0),Quaternion.identity);
 
+        OperationOnigiri OnigiriScript = spawnedOrg.GetComponent<OperationOnigiri>();
+
+        if (OnigiriScript != null)
+        {
+            OnigiriScript.manager=this;
+        }
      
 
     }
 
+    //void Update()
+    //{
+
+    //    if (totalOrg < 7)
+    //    {
+    //      StartCoroutine(SpawnChain());
+
+    //    }
+
+
+
+    //}
 
 
 

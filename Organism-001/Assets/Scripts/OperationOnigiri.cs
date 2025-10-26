@@ -46,6 +46,7 @@ public class OperationOnigiri : MonoBehaviour
       riceConsumed = 0;
       onigiriSprite = GetComponent<SpriteRenderer>();
       onigiriSprite.sprite = smallSpr;
+  
 
     }
 
@@ -75,7 +76,7 @@ public class OperationOnigiri : MonoBehaviour
     void Update()
     {
 
-        //Debug.Log(stateCurrent.ToString());
+        Debug.Log(manager.totalOrg);
 
         switch (stateCurrent)
         {
@@ -122,7 +123,6 @@ public class OperationOnigiri : MonoBehaviour
             RiceOwnership owning = other.GetComponent<RiceOwnership>();
             if (owning != null && owning.ownership == this)
             {
-                Debug.Log(name + " ate its rice!");
                 Destroy(other.gameObject);
                 riceConsumed += 1;
                 spawnRice();
@@ -217,8 +217,11 @@ public class OperationOnigiri : MonoBehaviour
         IEnumerator LargeOp()
         {
             moveSpeed = 0f;
+            StartCoroutine(OnigiriGrowth(new Vector3(0.2f, 0.2f, 1f), 0.1f));
             onigiriSprite.sprite = explodeSpr;
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(2f);
+            manager.totalOrg--;
+            StartCoroutine(manager.SpawnChain());
             AlterState(State.explode);
         }
 
@@ -226,8 +229,6 @@ public class OperationOnigiri : MonoBehaviour
         void inExplode()
         {
 
-            
-            
             Destroy(gameObject);
 
         }
