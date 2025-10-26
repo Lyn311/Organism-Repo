@@ -234,3 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   ricePrefab: {fileID: 6201820800001286103, guid: 8001d31e4001f2f4b9c6fec46319c673, type: 3}
+  smallSpr: {fileID: 4421648830293900857, guid: 2fa55e81050772f489c0e3429051cf2e, type: 3}
+  mediumSpr: {fileID: -789122700679583748, guid: b77c93f57a110fb4eaebd11de5cd53ec, type: 3}
+  largeSpr: {fileID: -3605373609963246554, guid: 6aef13a6ef59ae94d8870fde14a7db3b, type: 3}
+  explodeSpr: {fileID: 3237523092938332978, guid: b93cc26b75ea01b4c872fe8765e00f24, type: 3}

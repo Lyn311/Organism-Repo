@@ -11,6 +11,13 @@ public class OperationOnigiri : MonoBehaviour
     private GameObject target;
     private int riceConsumed = 0;
 
+    [Header("Sprite Change")]
+    private SpriteRenderer onigiriSprite;
+    [SerializeField] private Sprite smallSpr;
+    [SerializeField] private Sprite mediumSpr;
+    [SerializeField] private Sprite largeSpr;
+    [SerializeField] private Sprite explodeSpr;
+
     private enum State{
 
         idle,
@@ -35,6 +42,8 @@ public class OperationOnigiri : MonoBehaviour
       AlterState(State.idle);
       spawnRice();
       riceConsumed = 0;
+      onigiriSprite = GetComponent<SpriteRenderer>();
+      onigiriSprite.sprite = smallSpr;
 
     }
 
@@ -43,7 +52,20 @@ public class OperationOnigiri : MonoBehaviour
     {
         float riceX = Random.Range(-7.4f, 7.4f);
         float riceY = Random.Range(-3.4f, 3.4f);
-        target = Instantiate(ricePrefab,new Vector3(riceX,riceY,0),Quaternion.identity);
+        GameObject riceSpawned = Instantiate(ricePrefab,new Vector3(riceX,riceY,0),Quaternion.identity);
+        target = riceSpawned;
+
+        RiceOwnership owning = riceSpawned.GetComponent<RiceOwnership>();
+
+        if (owning != null)
+        {
+
+            owning.ownership = this;
+        
+        
+        
+        }
+
 
     }
 
@@ -51,7 +73,7 @@ public class OperationOnigiri : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(stateCurrent.ToString());
+        //Debug.Log(stateCurrent.ToString());
 
         switch (stateCurrent)
         {
@@ -94,10 +116,15 @@ public class OperationOnigiri : MonoBehaviour
 
         if (other.tag == "Food")
         {
-            Destroy(other.gameObject);
-            riceConsumed += 1;
-            spawnRice(); 
 
+            RiceOwnership owning = other.GetComponent<RiceOwnership>();
+            if (owning != null && owning.ownership == this)
+            {
+                Debug.Log(name + " ate its rice!");
+                Destroy(other.gameObject);
+                riceConsumed += 1;
+                spawnRice();
+            }
 
         }
 
@@ -149,7 +176,9 @@ public class OperationOnigiri : MonoBehaviour
 
         IEnumerator SmallOp()
         {
-            StartCoroutine(OnigiriGrowth(new Vector3(0.23f, 0.23f, 1f), 0.3f));
+            StartCoroutine(OnigiriGrowth(new Vector3(0.2f, 0.2f, 1f), 0.3f));
+            moveSpeed = 2.0f;
+            onigiriSprite.sprite = mediumSpr;
             yield return new WaitForSeconds(2f);
             AlterState(State.medium);
         }
@@ -167,7 +196,9 @@ public class OperationOnigiri : MonoBehaviour
 
         IEnumerator MediumOp()
         { 
-            StartCoroutine(OnigiriGrowth(new Vector3(0.3f, 0.3f, 1f), 0.3f));
+            StartCoroutine(OnigiriGrowth(new Vector3(0.23f, 0.23f, 1f), 0.3f));
+            moveSpeed = 1.5f;
+            onigiriSprite.sprite = largeSpr;
             yield return new WaitForSeconds(2f);
             AlterState(State.large);
         }
@@ -183,8 +214,9 @@ public class OperationOnigiri : MonoBehaviour
 
         IEnumerator LargeOp()
         {
-            StartCoroutine(OnigiriGrowth(new Vector3(0.4f, 0.4f, 1f), 0.3f));
-            yield return new WaitForSeconds(2f);
+            moveSpeed = 0f;
+            onigiriSprite.sprite = explodeSpr;
+            yield return new WaitForSeconds(4f);
             AlterState(State.explode);
         }
 
