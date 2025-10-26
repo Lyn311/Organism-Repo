@@ -10,6 +10,7 @@ public class OperationOnigiri : MonoBehaviour
     public GameObject ricePrefab;
     private GameObject target;
     private int riceConsumed = 0;
+    public GameManager manager;
 
     [Header("Sprite Change")]
     private SpriteRenderer onigiriSprite;
@@ -39,6 +40,7 @@ public class OperationOnigiri : MonoBehaviour
 
     void Start()
     {
+   
       AlterState(State.idle);
       spawnRice();
       riceConsumed = 0;
@@ -224,6 +226,8 @@ public class OperationOnigiri : MonoBehaviour
         void inExplode()
         {
 
+            
+            
             Destroy(gameObject);
 
         }

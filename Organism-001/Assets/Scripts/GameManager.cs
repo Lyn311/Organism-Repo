@@ -38,8 +38,9 @@ public class GameManager : MonoBehaviour
         float spawnCoordinateX = Random.Range(spawnCoordinateRangeX1,spawnCoordinateRangeX2);
         float spawnCoordinateY = Random.Range(spawnCoordinateRangeY1, spawnCoordinateRangeY2);
         GameObject spawningOrg = orgPrefabs[Random.Range(0,orgPrefabs.Length)];
-        Instantiate(spawningOrg,new Vector3(spawnCoordinateX,spawnCoordinateY,0),Quaternion.identity);
+        GameObject spawnedOrg = Instantiate(spawningOrg,new Vector3(spawnCoordinateX,spawnCoordinateY,0),Quaternion.identity);
 
+     
 
     }
 
