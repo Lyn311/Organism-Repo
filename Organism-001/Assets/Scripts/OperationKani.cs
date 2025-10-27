@@ -23,6 +23,8 @@ public class OperationKani : OperationOrganism
     [SerializeField] private Sprite rightGoneSpr;
     [SerializeField] private Sprite leftGoneSpr;
 
+    private bool generalFlag = false;
+
     private enum State{
 
         idle,
@@ -130,65 +132,85 @@ public class OperationKani : OperationOrganism
     void inIdle()
         {
 
+        if (generalFlag == false)
+        {
             StartCoroutine(IdleOp());
+        }
 
         }
 
         IEnumerator IdleOp()
         {
-            yield return new WaitForSeconds(2f);
+            generalFlag = true;
+            yield return new WaitForSeconds(1f);
             AlterState(State.allHave);
+            generalFlag = false;
 
         }
 
         void inallHave()
         {
-       
+
+        if (generalFlag == false)
+        {
             StartCoroutine(allHaveOp());
-        
+        }
 
         }
 
         IEnumerator allHaveOp()
         {
-            moveSpeed = Random.Range(1f,5f);
+            generalFlag = true;
+            yield return new WaitForSeconds(10f);
+            moveSpeed = 3f;
+            shiftFrequency = 1.3f;
             kaniSprite.sprite = rightGoneSpr;
-            yield return new WaitForSeconds(2f);
             AlterState(State.rightGone);
+            generalFlag = false;
         }
 
         void inrightGone()
         {
 
-       
+        if (generalFlag == false)
+        {
             StartCoroutine(rightGoneOp());
-        
+        }
 
 
         }
 
         IEnumerator rightGoneOp()
         {
-            moveSpeed = Random.Range(1f, 5f);
+            generalFlag = true;
+            yield return new WaitForSeconds(8f);
+            moveSpeed = 5f;
+            shiftScale = 0.5f;
             kaniSprite.sprite = leftGoneSpr;
-            yield return new WaitForSeconds(2f);
+            
             AlterState(State.leftGone);
+            generalFlag = false;
         }
 
         void inleftGone()
         {
-    
+
+        if (generalFlag == false)
+        {
             StartCoroutine(leftGoneOp());
-        
+        }
 
         }
 
         IEnumerator leftGoneOp()
         {
+
+           generalFlag = true;
+           yield return new WaitForSeconds(6f);
             moveSpeed = 0f;
-            yield return new WaitForSeconds(2f);
-            
-            AlterState(State.eaten);
+           shiftScale = 0.7f;
+           AlterState(State.eaten);
+           generalFlag = false;
         }
 
 

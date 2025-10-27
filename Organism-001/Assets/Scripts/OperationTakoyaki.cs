@@ -124,51 +124,65 @@ public class OperationTakoyaki : OperationOrganism
     void inIdle()
         {
             burningLight.pointLightOuterRadius = 1.0f;
+
+        if (died == false)
+        {
             StartCoroutine(IdleOp());
+        }
 
         }
 
         IEnumerator IdleOp()
-        {
+        { 
+            died = true;
             yield return new WaitForSeconds(2f);
             AlterState(State.mild);
+            died = false;
 
         }
 
         void inmild()
         {
-       
+
+        if (died == false)
+        {
             StartCoroutine(mildOp());
-        
+        }
 
         }
 
         IEnumerator mildOp()
         {
+            died = true;
             yield return new WaitForSeconds(10f);
             burningLight.pointLightOuterRadius = 1.3f;
             rotateSpeed = Random.Range(1f,3f);
             takoyakiSprite.sprite = avidSpr;
             AlterState(State.avid);
+            died = false;
         }
 
         void inavid()
         {
 
-       
+        if (died == false)
+        {
             StartCoroutine(avidOp());
-        
+        }
 
 
         }
 
         IEnumerator avidOp()
         {
+
+            died = true;    
             yield return new WaitForSeconds(8f);
             burningLight.pointLightOuterRadius = 1.6f;
             rotateSpeed = Random.Range(5f, 10f);
             takoyakiSprite.sprite = extremeSpr;
             AlterState(State.extreme);
+            died = false;
         }
 
         void inextreme()
@@ -194,16 +208,20 @@ public class OperationTakoyaki : OperationOrganism
 
         void inboom()
         {
-        StartCoroutine(boomOp());
-        
+
+        if (died == false)
+        {
+            StartCoroutine(boomOp());
+        }
 
         }
 
        IEnumerator boomOp()
     {
-   
+        died= true;
         yield return new WaitForSeconds(3f);
         AlterState(State.disappear);
+        died= false;
     
     }
 
