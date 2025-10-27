@@ -223,16 +223,15 @@ public class OperationOnigiri : OperationOrganism
             StartCoroutine(OnigiriGrowth(new Vector3(0.18f, 0.18f, 1f), 0.1f));
             onigiriSprite.sprite = explodeSpr;
             yield return new WaitForSeconds(2f);
-            manager.totalOrg--;
-            StartCoroutine(manager.SpawnChain());
+            
             AlterState(State.explode);
         }
 
 
         void inExplode()
         {
-
-            Destroy(gameObject);
+        manager.ReactivateLoop();
+        Destroy(gameObject);
 
         }
 

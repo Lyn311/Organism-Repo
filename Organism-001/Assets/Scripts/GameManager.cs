@@ -14,14 +14,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] public float spawnCoordinateRangeY1 = 3.4f;
     [SerializeField] public float spawnCoordinateRangeY2 = -3.8f;
 
+    private bool spawnFlag = false;
+
     void Start()
     {
-        StartCoroutine(SpawnChain());
         totalOrg = 0;
+        spawnFlag = false;
+        StartCoroutine(SpawnChain());
+        
     }
 
     public IEnumerator SpawnChain()
     {
+        if (spawnFlag == true)
+        {
+            yield break;
+
+        }
+
+        spawnFlag = true;
+
         while(totalOrg<7){ 
 
         SpawnOrg();
@@ -29,7 +41,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(spawnCoolDown);
 
 
-    }
+         }
+
+        spawnFlag = false;
 
     }
 
@@ -50,7 +64,16 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ReactivateLoop()
+    {
+        totalOrg -= 1;
 
+        if (totalOrg < 7 && spawnFlag == false)
+        {
+            StartCoroutine(SpawnChain());
+        }
+
+    }
 
 
 }

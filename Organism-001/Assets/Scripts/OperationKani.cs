@@ -187,16 +187,15 @@ public class OperationKani : OperationOrganism
         {
             moveSpeed = 0f;
             yield return new WaitForSeconds(2f);
-            manager.totalOrg--;
-            StartCoroutine(manager.SpawnChain());
+            
             AlterState(State.eaten);
         }
 
 
         void inEaten()
         {
-
-            Destroy(gameObject);
+        manager.ReactivateLoop();
+        Destroy(gameObject);
 
         }
 
