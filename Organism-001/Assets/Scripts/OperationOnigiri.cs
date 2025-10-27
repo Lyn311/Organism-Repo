@@ -3,14 +3,13 @@ using System.Collections;
 using UnityEngine.XR;
 using Unity.VisualScripting;
 
-public class OperationOnigiri : MonoBehaviour
+public class OperationOnigiri : OperationOrganism
 {
     
     [SerializeField]private float moveSpeed = 3f;
     public GameObject ricePrefab;
     private GameObject target;
     private int riceConsumed = 0;
-    public GameManager manager;
 
     [Header("Sprite Change")]
     private SpriteRenderer onigiriSprite;
@@ -153,6 +152,10 @@ public class OperationOnigiri : MonoBehaviour
 
     }
 
+
+
+    //States-------------------------------------------------------------------
+
     void inIdle()
         {
 
@@ -178,7 +181,7 @@ public class OperationOnigiri : MonoBehaviour
 
         IEnumerator SmallOp()
         {
-            StartCoroutine(OnigiriGrowth(new Vector3(0.2f, 0.2f, 1f), 0.3f));
+            StartCoroutine(OnigiriGrowth(new Vector3(0.18f, 0.18f, 1f), 0.3f));
             moveSpeed = 2.0f;
             onigiriSprite.sprite = mediumSpr;
             yield return new WaitForSeconds(2f);
@@ -198,7 +201,7 @@ public class OperationOnigiri : MonoBehaviour
 
         IEnumerator MediumOp()
         { 
-            StartCoroutine(OnigiriGrowth(new Vector3(0.23f, 0.23f, 1f), 0.3f));
+            StartCoroutine(OnigiriGrowth(new Vector3(0.21f, 0.21f, 1f), 0.3f));
             moveSpeed = 1.5f;
             onigiriSprite.sprite = largeSpr;
             yield return new WaitForSeconds(2f);
@@ -217,7 +220,7 @@ public class OperationOnigiri : MonoBehaviour
         IEnumerator LargeOp()
         {
             moveSpeed = 0f;
-            StartCoroutine(OnigiriGrowth(new Vector3(0.2f, 0.2f, 1f), 0.1f));
+            StartCoroutine(OnigiriGrowth(new Vector3(0.18f, 0.18f, 1f), 0.1f));
             onigiriSprite.sprite = explodeSpr;
             yield return new WaitForSeconds(2f);
             manager.totalOrg--;

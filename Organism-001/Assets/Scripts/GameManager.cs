@@ -40,28 +40,16 @@ public class GameManager : MonoBehaviour
         GameObject spawningOrg = orgPrefabs[Random.Range(0,orgPrefabs.Length)];
         GameObject spawnedOrg = Instantiate(spawningOrg,new Vector3(spawnCoordinateX,spawnCoordinateY,0),Quaternion.identity);
 
-        OperationOnigiri OnigiriScript = spawnedOrg.GetComponent<OperationOnigiri>();
+        OperationOrganism OrganismUniversal = spawnedOrg.GetComponent<OperationOrganism>();
 
-        if (OnigiriScript != null)
+        if (OrganismUniversal != null)
         {
-            OnigiriScript.manager=this;
+            OrganismUniversal.manager=this;
         }
      
 
     }
 
-    //void Update()
-    //{
-
-    //    if (totalOrg < 7)
-    //    {
-    //      StartCoroutine(SpawnChain());
-
-    //    }
-
-
-
-    //}
 
 
 

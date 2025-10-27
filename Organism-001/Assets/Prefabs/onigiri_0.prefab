@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.17, y: 0.17, z: 0.17}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -234,6 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   ricePrefab: {fileID: 6201820800001286103, guid: 8001d31e4001f2f4b9c6fec46319c673, type: 3}
+  manager: {fileID: 0}
   smallSpr: {fileID: 4421648830293900857, guid: 2fa55e81050772f489c0e3429051cf2e, type: 3}
   mediumSpr: {fileID: -789122700679583748, guid: b77c93f57a110fb4eaebd11de5cd53ec, type: 3}
   largeSpr: {fileID: -3605373609963246554, guid: 6aef13a6ef59ae94d8870fde14a7db3b, type: 3}

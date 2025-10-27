@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2091181485721432810}
   - component: {fileID: 8229601221725619457}
+  - component: {fileID: 572710640841588112}
   m_Layer: 0
-  m_Name: ramen_0
+  m_Name: kani_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.2666974, y: -0.8476068, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.17, y: 0.17, z: 0.17}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 3012034158170781639, guid: f0ef5c7f8ff624846b0caf4e9995fe8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,3 +88,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &572710640841588112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7789530252769830319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d799d2b3d63a42448abc48ff108dec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  moveSpeed: 3
+  minX: -7
+  maxX: 7
+  shiftScale: 0.3
+  shiftFrequency: 1
+  allHaveSpr: {fileID: 3012034158170781639, guid: f0ef5c7f8ff624846b0caf4e9995fe8c, type: 3}
+  rightGoneSpr: {fileID: 5136603312571281581, guid: 70de6cf7a6d1abd429b29bd8e6b34cfe, type: 3}
+  leftGoneSpr: {fileID: 2311394303212899688, guid: 3421123eca7b17045856ddc66c0e9815, type: 3}
